@@ -1,7 +1,13 @@
-<svg width="5732" height="3941" viewBox="0 0 5732 3941" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="5732" height="3941" fill="white"/>
-<rect x="517" y="422" width="4843" height="3147" fill="#FFADAD"/>
-<rect id="shape1" x="1034" y="977" width="751" height="643" fill="#DEFF97"/>
-<rect id="shape2" x="3134" y="1620" width="1060" height="807" stroke-width="3" fill="#ACFFAA"/>
-<path id="shape3" d="M1917 2011.5L2604.5 1784L2345.76 2493H1696.24L1917 2011.5Z" fill="#C4C4C4"/>
+<svg width="842" height="592" viewBox="0 0 842 592" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="842" height="592" fill="white" />
+    <rect x="75.9446" y="63.3911" width="711.411" height="472.729" fill="#FFADAD" />
+    <g>
+        <g>
+            <rect id="table1" x="151.889" y="146.761" width="110.318" height="96.5887" fill="#DEFF97" />
+            <ellipse id="table1" cx="175.539" cy="264.981" rx="15.1301" ry="15.4722" fill="#DEFF97" />
+            <ellipse id="table1" cx="237.382" cy="264.981" rx="15.1301" ry="15.4722" fill="#DEFF97" />
+        </g>
+        <rect id="table2"  x="556.584" y="168.842" width="155.708" height="121.224" fill="#ACFFAA" />
+        <path id="table3"  d="M393.642 390.035L494.632 355.861L456.625 462.364H361.214L393.642 390.035Z" fill="#C4C4C4" />
+    </g>
 </svg>

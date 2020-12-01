@@ -1,11 +1,10 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
-import 'package:svg_test/svg_interactive_viewer.dart';
+import 'package:svg_test/source/svg_interactive_viewer.dart';
 
 void main() {
   runApp(MyApp());
