@@ -6,14 +6,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 part 'extended_drawable.dart';
 
 class _SVGPainter extends CustomPainter {
-  final DrawableRoot svg;
-  _SVGPainter(this.svg);
+  final DrawableRoot svgRoot;
+  _SVGPainter(this.svgRoot);
 
   @override
   void paint(Canvas canvas, Size size) {
-    svg.scaleCanvasToViewBox(canvas, size);
-    svg.clipCanvasToViewBox(canvas);
-    svg.draw(canvas, Rect.fromLTWH(0, 0, size.width, size.height));
+    svgRoot.scaleCanvasToViewBox(canvas, size);
+    svgRoot.clipCanvasToViewBox(canvas);
+    svgRoot.draw(canvas, Rect.fromLTWH(0, 0, size.width, size.height));
   }
 
   @override
@@ -47,10 +47,10 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
   @override
   void initState() {
     super.initState();
-    _prepareSvg();
+    _updateCustomSvgStyles();
   }
 
-  void _prepareSvg() {
+  void _updateCustomSvgStyles() {
     svgRoot = widget.svgRoot.copyRoot();
     widget.shapeStyles
         .forEach((key, style) => svgRoot.applyChildStyle(key, style));
@@ -59,7 +59,7 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
   @override
   void didUpdateWidget(covariant SvgInteractiveViewer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _prepareSvg();
+    _updateCustomSvgStyles();
   }
 
   @override
@@ -70,7 +70,7 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
         width: constraints.maxWidth,
         child: GestureDetector(
           onTapDown: (details) =>
-              _viewportOnTap(details.localPosition, constraints.biggest),
+              onViewportTap(details.localPosition, constraints.biggest),
           child: InteractiveViewer(
             maxScale: widget.maxScale,
             scaleEnabled: true,
@@ -85,7 +85,9 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
     );
   }
 
-  void _viewportOnTap(Offset origin, Size viewportSize) {
+  void onViewportTap(Offset origin, Size viewportSize) {
+    print('origin: $origin');
+
     var transformedOrigin = controller.toScene(origin);
     var delta = min(
       viewportSize.height / svgRoot.viewport.height,
