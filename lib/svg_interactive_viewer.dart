@@ -121,7 +121,7 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
         width: constraints.maxWidth,
         child: GestureDetector(
           onTapDown: (details) =>
-              viewportOnTap(details.localPosition, constraints.biggest),
+              onViewportTap(details.localPosition, constraints.biggest),
           child: InteractiveViewer(
             maxScale: widget.maxScale,
             scaleEnabled: true,
@@ -136,7 +136,7 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
     );
   }
 
-  void viewportOnTap(Offset origin, Size viewportSize) {
+  void onViewportTap(Offset origin, Size viewportSize) {
     print('origin: $origin');
 
     var transformedOrigin = controller.toScene(origin);
