@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 extension ExtendedDrawableRoot on DrawableRoot {
-  bool setShapeChildren(String id, DrawableShape shape,
-      [bool insertNotExist = false]) {
-    int index = children
+  bool applyChildShape(
+    String id,
+    DrawableShape shape, [
+    bool insertIfNotExist = false,
+  ]) {
+    int childIndex = children
         .indexWhere((element) => element.id == id && element is DrawableShape);
-    if (index == -1) {
-      if (!insertNotExist) return false;
+    if (childIndex == -1) {
+      if (!insertIfNotExist) return false;
       children.add(shape);
     } else {
-      children[index] = shape;
+      children[childIndex] = shape;
     }
     return true;
   }
@@ -28,14 +31,14 @@ extension ExtendedDrawableRoot on DrawableRoot {
   }
 
   DrawableRoot copy() {
-    var chilrdrenCopy = children
+    var childrenCopy = children
         .map(
             (e) => (e is DrawableStyleable) ? e.mergeStyle(DrawableStyle()) : e)
         .toList();
     return DrawableRoot(
       id,
       viewport,
-      chilrdrenCopy,
+      childrenCopy,
       definitions,
       style,
       transform: transform,
@@ -45,6 +48,7 @@ extension ExtendedDrawableRoot on DrawableRoot {
 
 class SVGPainter extends CustomPainter {
   final DrawableRoot svg;
+
   SVGPainter(this.svg);
 
   @override
@@ -85,17 +89,17 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
   @override
   void initState() {
     super.initState();
-    prepareSvg();
+    updateCustomSvgShapeStyles();
   }
 
-  void prepareSvg() {
+  void updateCustomSvgShapeStyles() {
     svgRoot = widget.svgRoot.copy();
     var children = widget.svgRoot.children;
     children.forEach((element) {
       if ((element.id?.isNotEmpty ?? false) &&
           element is DrawableShape &&
           widget.shapeStyles.containsKey(element.id)) {
-        svgRoot.setShapeChildren(
+        svgRoot.applyChildShape(
           element.id,
           element.mergeStyle(widget.shapeStyles[element.id]),
         );
@@ -106,7 +110,7 @@ class _SvgInteractiveViewerState extends State<SvgInteractiveViewer> {
   @override
   void didUpdateWidget(covariant SvgInteractiveViewer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    prepareSvg();
+    updateCustomSvgShapeStyles();
   }
 
   @override
